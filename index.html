@@ -30,10 +30,32 @@
 
     }
 
+    var platforms;
+
     function create() {
 
-        game.add.sprite(0, 0, 'star');
-        
+        /*
+         We're going to be using physics, so enable the Arcade Physics system
+         */
+
+        // A simple background for our game
+        game.add.sprite(0, 0, 'sky');
+
+        //  The platforms group contains the ground and the 2 ledges we can jump on
+        platforms = game.add.group();
+
+        // Here we create the ground.
+        var ground = platforms.create(0, game.world.height -64, 'ground');
+
+        //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
+        ground.scale.setTo(2 ,2);
+
+        //  Now let's create two ledges
+        var ledge = platforms.create(400, 400, 'ground');
+        ledge = platforms.create(-150, 250, 'ground');
+
+        game.add.sprite(120, 140, 'star');
+
     }
 
     function update() {
