@@ -26,7 +26,7 @@
         game.load.image('sky', 'assets/sky.png');
         game.load.image('ground', 'assets/platform.png');
         game.load.image('star', 'assets/star.png');
-        game.load.spritesheet('dude', 'assets/dude.png');
+        game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
 
     }
 
@@ -66,7 +66,7 @@
         game.add.sprite(120, 140, 'star');
 
         // The player and its settings
-        player = game.add.sprite(32, game.world.height - 150, 'dude');
+        player = game.add.sprite(32, game.world.height -150, 'dude');
 
         //  We need to enable physics on the player
         game.physics.arcade.enable(player);
@@ -80,11 +80,39 @@
         player.animations.add('left', [0, 1, 2, 3], 10, true);
         player.animations.add('right', [5, 6, 7, 8], 10, true);
 
+        //  Our controls.
+        cursors = game.input.keyboard.createCursorKeys();
+
     }
 
     function update() {
         //  Collide the player and the stars with the platforms
         game.physics.arcade.collide(player, platforms);
+
+        //  Reset the players velocity (movement)
+        player.body.velocity.x = 0;
+
+        if (cursors.left.isDown) {
+            //  Move to the left
+            player.body.velocity.x = -150;
+
+            player.animations.play('left');
+        } else if (cursors.right.isDown) {
+            //  Move to the right
+            player.body.velocity.x = 150;
+
+            player.animations.play('right');
+        } else {
+            //  Stand still
+            player.animations.stop();
+
+            player.frame = 4;
+        }
+
+        //  Allow the player to jump if they are touching the ground.
+        if (cursors.up.isDown && player.body.touching.down) {
+            player.body.velocity.y = -350;
+        }
     }
 </script>
 
