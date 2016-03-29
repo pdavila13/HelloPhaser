@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/pdavila13/HelloPhaser/issues"
   },
-  "homepage": "https://github.com/pdavila13/HelloPhaser#readme"
+  "homepage": "https://github.com/pdavila13/HelloPhaser#readme",
+  "dependencies": {
+    "phaser": "^2.4.6"
+  }
 }
